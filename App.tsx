@@ -22,6 +22,11 @@ export default function App() {
     }]);
   }
 
+  const deleteGoalHandler = (goalId: string) => {
+    const filteredGoals = goals.filter(goal => goal.id !== goalId);
+    setGoals(filteredGoals);
+  }
+
   useEffect(function whenGoalsListChanges() {
     console.log({ goals });
   }, [goals]);
@@ -37,7 +42,9 @@ export default function App() {
         data={goals}
         renderItem={(itemData) => (
           <GoalItem
+            id={itemData.item.id}
             value={itemData.item.value}
+            onDelete={deleteGoalHandler}
           />
         )}
       />
