@@ -2,6 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TextInput, ScrollView, FlatList } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
+// Components
+import GoalItem from './src/components/GoalItem';
+
 interface Goal {
   id: string;
   value: string;
@@ -49,9 +52,9 @@ export default function App() {
         data={goals}
         renderItem={(itemData) => {
           return (
-            <View style={styles.goalItem}>
-              <Text style={styles.goalTitle}>{itemData.item.value}</Text>
-            </View>
+            <GoalItem
+              value={itemData.item.value}
+            />
           );
         }}
       />
@@ -85,22 +88,4 @@ const styles = StyleSheet.create({
     width: '100%',
     margin: 0,
   },
-  goalItem: {
-    padding: 10,
-    backgroundColor: '#2196f3',
-    borderRadius: 10,
-    overflow: 'hidden',
-    elevation: 10,
-    marginVertical: 20,
-    marginHorizontal: 20,
-    height: 120,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  goalTitle: {
-    fontSize: 18,
-    color: '#fff',
-    textAlign: 'center',
-  }
 });
