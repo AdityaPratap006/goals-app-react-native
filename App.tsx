@@ -1,17 +1,23 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, TextInput } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 export default function App() {
-  const [enteredGoal, setEnteredGoal] = useState('');
+  const [enteredGoal, setEnteredGoal] = useState<string>('');
+  const [goals, setGoals] = useState<string[]>([]);
 
   const goalInputHandler = (enteredText: string) => {
     setEnteredGoal(enteredText);
   }
 
   const addGoalHandler = () => {
-    console.log({enteredGoal});
+    setGoals(prevGoals => [...prevGoals, enteredGoal]);
+    setEnteredGoal('');
   }
+
+  useEffect(function whenGoalsListChanges() {
+    console.log({ goals });
+  }, [goals]);
 
   return (
     <View style={styles.screen}>
@@ -19,6 +25,7 @@ export default function App() {
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.textInput}
+          value={enteredGoal}
           placeholder="Course Goal"
           onChangeText={goalInputHandler}
         />
@@ -28,7 +35,13 @@ export default function App() {
         />
       </View>
       <View>
-
+        {
+          goals.map(goal => {
+            return (
+              <Text key={goal}>{goal}</Text>
+            );
+          })
+        }
       </View>
     </View>
   );
