@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, TextInput, ScrollView, FlatList } from 'react-native';
+import { StyleSheet, View, FlatList } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 
 // Components
 import GoalItem from './src/components/GoalItem';
 import GoalInput from './src/components/GoalInput';
+import AddGoalButton from './src/components/AddGoalButton';
 
 interface Goal {
   id: string;
@@ -14,6 +15,7 @@ interface Goal {
 export default function App() {
 
   const [goals, setGoals] = useState<Goal[]>([]);
+  const [isAddMode, setIsAddMode] = useState<boolean>(false);
 
   const addGoalHandler = (enteredGoal: string) => {
     setGoals(prevGoals => [...prevGoals, {
@@ -27,6 +29,10 @@ export default function App() {
     setGoals(filteredGoals);
   }
 
+  const openInputModal = () => {
+    setIsAddMode(true);
+  }
+
   useEffect(function whenGoalsListChanges() {
     console.log({ goals });
   }, [goals]);
@@ -34,7 +40,8 @@ export default function App() {
   return (
     <View style={styles.screen}>
       <StatusBar style="auto" />
-      <GoalInput addGoalHandler={addGoalHandler} />
+      <AddGoalButton onPress={openInputModal}/>
+      <GoalInput modalOpen={isAddMode} addGoalHandler={addGoalHandler} />
       <FlatList
         style={styles.listContainer}
         showsVerticalScrollIndicator={false}
