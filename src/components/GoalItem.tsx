@@ -18,7 +18,7 @@ export default GoalItem;
 const styles = StyleSheet.create({
     goalItem: {
         padding: 10,
-        backgroundColor: '#2198f3',
+        backgroundColor: '#2196f3',
         borderRadius: 10,
         overflow: 'hidden',
         elevation: 10,
