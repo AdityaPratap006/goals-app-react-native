@@ -22,6 +22,7 @@ export default function App() {
       id: Date.now().toString(),
       value: enteredGoal,
     }]);
+    setIsAddMode(false);
   }
 
   const deleteGoalHandler = (goalId: string) => {
@@ -33,6 +34,10 @@ export default function App() {
     setIsAddMode(true);
   }
 
+  const closeInputModal = () => {
+    setIsAddMode(false);
+  }
+
   useEffect(function whenGoalsListChanges() {
     console.log({ goals });
   }, [goals]);
@@ -40,8 +45,12 @@ export default function App() {
   return (
     <View style={styles.screen}>
       <StatusBar style="auto" />
-      <AddGoalButton onPress={openInputModal}/>
-      <GoalInput modalOpen={isAddMode} addGoalHandler={addGoalHandler} />
+      <AddGoalButton onPress={openInputModal} />
+      <GoalInput
+        modalOpen={isAddMode}
+        addGoalHandler={addGoalHandler}
+        onCancel={closeInputModal}
+      />
       <FlatList
         style={styles.listContainer}
         showsVerticalScrollIndicator={false}
@@ -69,6 +78,6 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     width: '100%',
-    margin: 0,
+    marginTop: 10,
   },
 });
