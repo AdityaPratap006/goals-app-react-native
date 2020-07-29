@@ -45,7 +45,7 @@ export default function App() {
   return (
     <View style={styles.screen}>
       <StatusBar style="auto" />
-      <AddGoalButton onPress={openInputModal} />
+      <AddGoalButton onPress={openInputModal}/>
       <GoalInput
         modalOpen={isAddMode}
         addGoalHandler={addGoalHandler}
